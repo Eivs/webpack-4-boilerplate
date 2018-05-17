@@ -1,8 +1,7 @@
 {
   "name": "webpack-4-boilerplate",
   "version": "1.0.0",
-  "description":
-    "A Simple Boilerplate with Webpack 4, Eslint (standard), Babel, React, SCSS.",
+  "description": "A Simple Boilerplate with Webpack 4, Eslint (standard), Babel, React, SCSS.",
   "main": "lib",
   "scripts": {
     "start": "webpack-dev-server --progress --mode development"
@@ -10,6 +9,8 @@
   "author": "Elvis",
   "license": "MIT",
   "dependencies": {
+    "@QCFE/lego-ui": "0.0.1-3",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
@@ -38,6 +39,7 @@
     "node-sass": "^4.9.0",
     "react-hot-loader": "^4.1.2",
     "sass-loader": "^7.0.1",
+    "standard-version": "^4.3.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3",
