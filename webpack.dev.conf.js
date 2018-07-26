@@ -1,12 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackBar = require('webpackbar')
 
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
 
-module.exports = {
+const config = {
   devtool: 'inline-source-map',
   entry: ['react-hot-loader/patch', './src/index.js'],
   module: {
@@ -32,22 +33,13 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true
-            }
+            loader: 'style-loader'
           },
           {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
+            loader: 'css-loader'
           },
           {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
+            loader: 'sass-loader'
           }
         ]
       },
@@ -58,7 +50,8 @@ module.exports = {
           name: '[path][name].[ext]'
         }
       }
-    ]
+    ],
+    unsafeCache: true
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
@@ -70,14 +63,52 @@ module.exports = {
   output: {
     path: resolve('dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'js/[name].[hash].js',
+    chunkFilename: 'js/[name].[hash].js',
+    pathinfo: true
   },
   plugins: [
+    new WebpackBar({
+      name: '',
+      color: 'green',
+      profile: true
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: 'index.html'
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
     })
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial',
+          name: 'vendor',
+          reuseExistingChunk: false,
+          priority: -10
+        },
+        'async-vendors': {
+          test: /[\\/]node_modules[\\/]/,
+          minChunks: 2,
+          chunks: 'async',
+          name: 'async-vendors',
+          priority: -20
+        }
+      }
+    },
+    runtimeChunk: { name: 'runtime' },
+    noEmitOnErrors: true,
+    mergeDuplicateChunks: true,
+    removeEmptyChunks: true,
+    removeAvailableModules: true,
+    namedModules: true,
+    namedChunks: true,
+    providedExports: true
+  },
+  cache: true,
   devServer: {
     hot: true,
     compress: true,
@@ -89,3 +120,5 @@ module.exports = {
     port: 8080
   }
 }
+
+module.exports = config
