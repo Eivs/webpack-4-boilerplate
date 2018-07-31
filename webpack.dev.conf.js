@@ -3,9 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackBar = require('webpackbar')
 
-const resolve = dir => {
-  return path.join(__dirname, dir)
-}
+const resolve = dir => path.join(__dirname, dir)
 
 const config = {
   devtool: 'inline-source-map',

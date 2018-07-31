@@ -73,7 +73,7 @@ const config = {
       filename: 'css/[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      filename: resolve('index.html'),
+      filename: resolve('dist/index.html'),
       template: 'index.html',
       inject: true,
       minify: {
