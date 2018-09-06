@@ -1,8 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import './style.scss'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './style.css';
 
-ReactDOM.render(<App />, document.getElementById('app'))
+/* eslint-disable react/jsx-filename-extension */
+ReactDOM.render(<App />, document.getElementById('app'));
 
-module.hot.accept()
+module.hot.accept();

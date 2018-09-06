@@ -1,18 +1,17 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackBar = require('webpackbar')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+/* eslint-disable import/no-extraneous-dependencies */
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackBar = require('webpackbar');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const resolve = dir => {
-  return path.join(__dirname, dir)
-}
+const resolve = dir => path.join(__dirname, dir);
 
 const config = {
   devtool: false,
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
   },
   module: {
     rules: [
@@ -21,56 +20,56 @@ const config = {
         include: /src/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
-            loader: 'sass-loader'
-          }
-        ]
+            loader: 'sass-loader',
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]'
-        }
-      }
-    ]
+          name: '[path][name].[ext]',
+        },
+      },
+    ],
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [resolve('src'), resolve('node_modules')],
     alias: {
-      src: resolve('src')
-    }
+      src: resolve('src'),
+    },
   },
   output: {
     path: resolve('dist'),
     publicPath: '/',
     filename: 'js/[name].[chunkhash].js',
-    chunkFilename: 'js/[name].[chunkhash].js'
+    chunkFilename: 'js/[name].[chunkhash].js',
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new WebpackBar({
       name: '',
       color: 'green',
-      profile: true
+      profile: true,
     }),
     new MiniCssExtractPlugin({
       path: resolve('dist'),
       publicPath: '/',
-      filename: 'css/[name].[contenthash].css'
+      filename: 'css/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
       filename: resolve('dist/index.html'),
@@ -79,11 +78,11 @@ const config = {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
       },
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
     }),
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
   ],
   optimization: {
     splitChunks: {
@@ -93,23 +92,23 @@ const config = {
           chunks: 'initial',
           name: 'vendor',
           reuseExistingChunk: false,
-          priority: -10
+          priority: -10,
         },
         'async-vendors': {
           test: /[\\/]node_modules[\\/]/,
           minChunks: 2,
           chunks: 'async',
           name: 'async-vendors',
-          priority: -20
-        }
-      }
+          priority: -20,
+        },
+      },
     },
     runtimeChunk: { name: 'runtime' },
-    noEmitOnErrors: true
+    noEmitOnErrors: true,
   },
   performance: {
-    hints: false
-  }
-}
+    hints: false,
+  },
+};
 
-module.exports = config
+module.exports = config;

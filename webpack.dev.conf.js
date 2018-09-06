@@ -1,9 +1,11 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackBar = require('webpackbar')
+/* eslint-disable import/no-extraneous-dependencies */
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackBar = require('webpackbar');
+const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
-const resolve = dir => path.join(__dirname, dir)
+const resolve = dir => path.join(__dirname, dir);
 
 const config = {
   devtool: 'inline-source-map',
@@ -16,67 +18,67 @@ const config = {
         enforce: 'pre',
         include: [resolve('src')],
         options: {
-          formatter: require('eslint-friendly-formatter')
-        }
+          formatter: eslintFriendlyFormatter,
+        },
       },
       {
         test: /\.jsx?$/,
         include: /src/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
-            loader: 'sass-loader'
-          }
-        ]
+            loader: 'sass-loader',
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]'
-        }
-      }
+          name: '[path][name].[ext]',
+        },
+      },
     ],
-    unsafeCache: true
+    unsafeCache: true,
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [resolve('src'), resolve('node_modules')],
     alias: {
-      src: resolve('src')
-    }
+      src: resolve('src'),
+    },
   },
   output: {
     path: resolve('dist'),
     publicPath: '/',
     filename: 'js/[name].[hash].js',
     chunkFilename: 'js/[name].[hash].js',
-    pathinfo: true
+    pathinfo: true,
   },
   plugins: [
     new WebpackBar({
       name: '',
       color: 'green',
-      profile: true
+      profile: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
-    })
+      inject: true,
+    }),
   ],
   optimization: {
     splitChunks: {
@@ -86,16 +88,16 @@ const config = {
           chunks: 'initial',
           name: 'vendor',
           reuseExistingChunk: false,
-          priority: -10
+          priority: -10,
         },
         'async-vendors': {
           test: /[\\/]node_modules[\\/]/,
           minChunks: 2,
           chunks: 'async',
           name: 'async-vendors',
-          priority: -20
-        }
-      }
+          priority: -20,
+        },
+      },
     },
     runtimeChunk: { name: 'runtime' },
     noEmitOnErrors: true,
@@ -104,7 +106,7 @@ const config = {
     removeAvailableModules: true,
     namedModules: true,
     namedChunks: true,
-    providedExports: true
+    providedExports: true,
   },
   cache: true,
   devServer: {
@@ -115,8 +117,8 @@ const config = {
     inline: true,
     overlay: true,
     stats: 'errors-only',
-    port: 8080
-  }
-}
+    port: 8080,
+  },
+};
 
-module.exports = config
+module.exports = config;
