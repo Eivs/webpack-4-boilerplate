@@ -1,8 +1,5 @@
 {
-  "presets": [["env", { "modules": false }], "stage-1", "react"],
+  "presets": [["env", { "modules": false }], "stage-1", "react", "flow"],
   "comments": false,
-  "plugins": [
-    "transform-runtime",
-    "transform-decorators-legacy"
-  ]
+  "plugins": ["transform-runtime", "transform-decorators-legacy"]
 }

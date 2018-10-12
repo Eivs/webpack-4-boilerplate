@@ -1,15 +1,12 @@
 import React from 'react';
-import '@QCFE/lego-ui/lib/scss/lego-ui.min.css';
-import { Button, Message } from '@QCFE/lego-ui';
-import '@QCFE/lego-font/main.scss';
+import Button from './component/Button';
 
-const notify = () => {
-  Message.info('haha');
-};
+// @flow
+
 const App = () => (
   <div>
-    Hello!
-    <Button onClick={notify}>Button</Button>
+    <Input />
+    <Button size="medium">HAHA</Button>
   </div>
 );
 export default App;
