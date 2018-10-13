@@ -5,7 +5,7 @@ import classNames from 'classnames';
 type Props = {
   children?: React.Node,
   className: string,
-  size?: 'small' | 'normal' | 'medium' | 'large',
+  size?: "small" | "normal" | "medium" | "large"
 };
 
 type State = {};
@@ -20,7 +20,10 @@ class Button extends PureComponent<Props, State> {
     const { children, className, size } = this.props;
     const btnSize = size ? `is-${size}` : '';
     return (
-      <button type="button" className={classNames('button', className, btnSize)}>
+      <button
+        type="button"
+        className={classNames('button', className, btnSize)}
+      >
         {children}
       </button>
     );
