@@ -1,31 +1,31 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
-import { omit } from 'lodash';
 
 // @flow
-
+// @flow-runtime
 type Props = {
   children?: React.Node,
-  className: string,
-  size?: 'small' | 'normal' | 'medium' | 'large',
+  className: String,
+  size?: String<'small' | 'normal' | 'medium' | 'large'>,
 };
 
 type State = {};
 
-class Button extends PureComponent<Props, State> {
+class Button extends React.PureComponent<Props, State> {
   static defaultProps = {
     children: 'Button',
-    size: '',
+    size: 'normal',
   };
 
   render() {
     const {
-      children, className, size, ...resProps
+      children, className, size, ...restProps
     } = this.props;
-    const btnSize = size ? `is-${size}` : '';
-    const otherProps = omit(resProps, 'style');
+
+    const btnSize = size !== 'normal' ? `is-${size}` : '';
+
     return (
-      <button type="button" className={classNames('button', className, btnSize)} {...otherProps}>
+      <button type="button" className={classNames('button', className, btnSize)} {...restProps}>
         {children}
       </button>
     );

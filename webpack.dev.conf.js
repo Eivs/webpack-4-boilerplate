@@ -8,6 +8,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const resolve = dir => path.join(__dirname, dir);
 
+process.envNODE_ENV = 'development';
+
 const config = {
   devtool: 'inline-source-map',
   entry: ['react-hot-loader/patch', './src/index.js'],
@@ -58,7 +60,7 @@ const config = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/', // config as you like
+              outputPath: 'fonts/',
             },
           },
         ],

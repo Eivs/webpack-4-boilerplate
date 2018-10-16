@@ -8,6 +8,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const resolve = dir => path.join(__dirname, dir);
 
+process.envNODE_ENV = 'production';
+
 const config = {
   devtool: false,
   entry: {
