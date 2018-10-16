@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const resolve = dir => path.join(__dirname, dir);
 
@@ -132,5 +133,9 @@ const config = {
     port: 8080,
   },
 };
+
+if (process.env.npm_config_report) {
+  config.plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = config;
