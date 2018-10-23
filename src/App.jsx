@@ -1,10 +1,6 @@
 import React from 'react';
 import Button from './component/Button';
 
-// @flow
-const App = () => (
-  <div>
-    <Button size="medium" className="info">Button</Button>
-  </div>
-);
+const App = () => <Button>Button</Button>;
+
 export default App;

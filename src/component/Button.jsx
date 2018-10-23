@@ -1,33 +1,22 @@
-import React, { PureComponent } from 'react';
-import classNames from 'classnames';
+import * as React from 'react';
+import proptypes from 'prop-types';
 
-// @flow
-type Props = {
-  children?: React.Node,
-  className: string,
-  size?: "small" | "normal" | "medium" | "large"
+const propTypes = {
+  children: proptypes.node,
 };
 
-type State = {};
+const defaultProps = {
+  children: null,
+};
 
-class Button extends PureComponent<Props, State> {
-  static defaultProps = {
-    children: 'Button',
-    size: '',
-  };
+const Button = ({ children }) => (
+  <button type="button" className="button">
+    {children}
+  </button>
+);
 
-  render() {
-    const { children, className, size } = this.props;
-    const btnSize = size ? `is-${size}` : '';
-    return (
-      <button
-        type="button"
-        className={classNames('button', className, btnSize)}
-      >
-        {children}
-      </button>
-    );
-  }
-}
+Button.propTypes = propTypes;
+
+Button.defaultProps = defaultProps;
 
 export default Button;
