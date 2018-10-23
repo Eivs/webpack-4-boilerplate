@@ -1,10 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const WebpackBar = require('webpackbar');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const merge = require('webpack-merge');
+const baseWebpackConfig = require('./webpack.base.conf');
 
 const resolve = dir => path.join(__dirname, dir);
 
@@ -15,59 +19,11 @@ const config = {
   entry: {
     app: './src/index.js',
   },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        include: /src/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.(css|scss)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
-          },
-        ],
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-    modules: [resolve('src'), resolve('node_modules')],
-    alias: {
-      src: resolve('src'),
-    },
-  },
-  output: {
-    path: resolve('dist'),
-    publicPath: '/',
-    filename: 'js/[name].[chunkhash].js',
-    chunkFilename: 'js/[name].[chunkhash].js',
-  },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new WebpackBar({
-      name: '',
-      color: 'green',
-      profile: true,
+    new webpack.DefinePlugin({
+      'process.env': process.envNODE_ENV,
     }),
+    new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       path: resolve('dist'),
       publicPath: '/',
@@ -85,6 +41,11 @@ const config = {
       chunksSortMode: 'dependency',
     }),
     new BundleAnalyzerPlugin(),
+    new WebpackBar({
+      name: process.envNODE_ENV,
+      color: 'green',
+      profile: true,
+    }),
   ],
   optimization: {
     splitChunks: {
@@ -113,4 +74,4 @@ const config = {
   },
 };
 
-module.exports = config;
+module.exports = merge(baseWebpackConfig, config);

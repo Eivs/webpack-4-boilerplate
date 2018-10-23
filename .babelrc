@@ -6,8 +6,7 @@
         "modules": false
       }
     ],
-    "@babel/preset-react",
-    "@babel/preset-flow"
+    "@babel/preset-react"
   ],
   "comments": false,
   "plugins": [
@@ -41,10 +40,10 @@
   ],
   "env": {
     "production": {
-      "plugins": ["@babel/plugin-transform-flow-strip-types"]
+      "plugins": []
     },
     "development": {
-      "plugins": ["flow-runtime"]
+      "plugins": []
     }
   }
 }
