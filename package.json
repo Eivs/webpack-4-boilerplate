@@ -12,7 +12,7 @@
   "author": "Elvis",
   "license": "MIT",
   "dependencies": {
-    "@QCFE/lego-ui": "^0.1.1-5",
+    "@QCFE/lego-ui": "^0.1.1-6",
     "@babel/runtime": "^7.1.2",
     "bulma": "^0.7.2",
     "classnames": "^2.2.6",
@@ -21,7 +21,9 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-lifecycles-compat": "^3.0.4",
+    "react-loadable": "^5.5.0",
     "react-router": "^4.2.0",
+    "react-router-config": "^4.4.0-beta.5",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {

@@ -1,32 +1,14 @@
 import React from 'react';
-import { RadioGroup, RadioButton } from '@QCFE/lego-ui';
-import SimpleA from './component/SimpleA';
-import SimpleB from './component/SimpleB';
+// import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import { LocaleProvider } from '@QCFE/lego-ui';
+import routes from './routes';
 
-class App extends React.Component {
-  state = {
-    show: 'SimpleA',
-  };
-
-  render() {
-    const { show } = this.state;
-    return (
-      <div>
-        <RadioGroup
-          name="Demo"
-          defaultValue={show}
-          onChange={value => {
-            this.setState({ show: value });
-          }}
-        >
-          <RadioButton value="SimpleA">DemoA</RadioButton>
-          <RadioButton value="SimpleB">DemoB</RadioButton>
-        </RadioGroup>
-
-        {show === 'SimpleA' ? <SimpleA /> : <SimpleB />}
-      </div>
-    );
-  }
-}
+const App = () => (
+  <LocaleProvider currentLocale="zh-CN">
+    <Router>{renderRoutes(routes)}</Router>
+  </LocaleProvider>
+);
 
 export default App;
