@@ -1,12 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
+const webpack = require('webpack');
+const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const resolve = dir => path.join(__dirname, dir);
 
+const { NODE_ENV } = process.env;
+
+// const devMode = NODE_ENV === 'development';
+
 const config = {
+  mode: NODE_ENV,
   module: {
     rules: [
       {
@@ -27,13 +34,8 @@ const config = {
         },
       },
       {
-        test: /\.(css|scss)$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'sass-loader',
-          'postcss-loader',
-        ],
+        test: /\.(sa|sc|c)ss$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -72,6 +74,15 @@ const config = {
     pathinfo: true,
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': NODE_ENV,
+    }),
+    new WebpackBar({
+      name: NODE_ENV,
+      color: 'green',
+      profile: NODE_ENV === 'production',
+    }),
+
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',

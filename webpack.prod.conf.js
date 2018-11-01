@@ -1,7 +1,7 @@
+process.env.NODE_ENV = 'production';
+
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const webpack = require('webpack');
-const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -12,17 +12,12 @@ const baseWebpackConfig = require('./webpack.base.conf');
 
 const resolve = dir => path.join(__dirname, dir);
 
-process.envNODE_ENV = 'production';
-
 const config = {
   devtool: false,
   entry: {
     app: './src/index.js',
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': process.envNODE_ENV,
-    }),
     new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       path: resolve('dist'),
@@ -39,12 +34,6 @@ const config = {
         removeAttributeQuotes: true,
       },
       chunksSortMode: 'dependency',
-    }),
-    new BundleAnalyzerPlugin(),
-    new WebpackBar({
-      name: process.envNODE_ENV,
-      color: 'green',
-      profile: true,
     }),
   ],
   optimization: {
@@ -73,5 +62,9 @@ const config = {
     hints: false,
   },
 };
+
+if (process.env.npm_config_report) {
+  config.plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = merge(baseWebpackConfig, config);
